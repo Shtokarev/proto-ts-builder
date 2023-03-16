@@ -1,7 +1,6 @@
 {
   "name": "proto-ts-builder",
   "version": "0.0.1",
-  "description": "Builder for Typescript API packages for the gRPC proto files with the grpc-tools",
   "main": "./dist/cjs/src/index-cjs.js",
   "module": "./dist/mjs/index.js",
   "types": "./dist/mjs/index.d.ts",
@@ -21,6 +20,10 @@
   "files": [
     "dist"
   ],
+  "description": "Builder for Typescript API packages for the gRPC proto files with the grpc-tools",
+  "author": "Shtokarev Yuriy <shtokarev@gmail.com>",
+  "license": "MIT",
+  "repository": "git://github.com/Shtokarev/proto-ts-builder.git",
   "scripts": {
     "preprepare": "rm -rf dist",
     "prepare": "tsc -p tsconfig-cjs.json && tsc -p tsconfig-esm.json",
@@ -28,8 +31,6 @@
     "postversion": "npm publish",
     "prepublishOnly": "git push origin --follow-tags"
   },
-  "author": "Shtokarev Yuriy <shtokarev@gmail.com>",
-  "license": "MIT",
   "dependencies": {
     "@grpc/grpc-js": "^1.8.11",
     "@grpc/proto-loader": "^0.7.5"
