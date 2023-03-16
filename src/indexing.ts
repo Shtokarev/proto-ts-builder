@@ -46,7 +46,6 @@ export const indexTsFolder = (
         path.join(directoryPath, "index.ts"),
         createIndexFile(importLines)
       );
-      console.log(createIndexFile(importLines));
     }
   };
 
