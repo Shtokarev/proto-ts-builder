@@ -1,6 +1,6 @@
 {
   "name": "proto-ts-builder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dist/cjs/src/index-cjs.js",
   "module": "./dist/mjs/index.js",
   "types": "./dist/mjs/index.d.ts",
