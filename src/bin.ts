@@ -27,7 +27,14 @@ program
     "-o,  --ts_proto_opt <ts-proto-options>",
     "Options for ts-proto.",
     "outputEncodeMethods=false,outputJsonMethods=false,outputClientImpl=false,esModuleInterop=true,addGrpcMetadata=true,lowerCaseServiceMethods=true,unrecognizedEnum=true,exportCommonSymbols=true,oneof=unions,importSuffix=.js,env=node,removeEnumPrefix=true"
-  );
+  )
+  .action((options) => {
+    const { proto, output, ts_proto_opt } = options;
+    console.log("STARTING GENERATE TS TYPE FILES\n");
+
+    builder.generate(proto, output, ts_proto_opt);
+    console.log("TYPE FILES GENERATION COMPLETED\n");
+  });
 
 program
   .command("generate-services")
@@ -49,10 +56,10 @@ program
 
   .action((options) => {
     const { proto, output, ts_proto_opt } = options;
-    console.log("🚀------------> STARTING GENERATE TS SERVICES FILES\n");
+    console.log("STARTING GENERATE TS SERVICES FILES\n");
 
     builder.generate(proto, output, ts_proto_opt);
-    console.log("🚀------------> SERVICES FILES GENERATION COMPLETED\n");
+    console.log("SERVICES FILES GENERATION COMPLETED\n");
   });
 
 program
@@ -74,10 +81,10 @@ program
   )
   .action((options) => {
     const { directory, header, skip } = options;
-    console.log("🚀------------> STARTING INDEXING TS FILES\n");
+    console.log("STARTING INDEXING TS FILES\n");
 
     builder.indexTsFolder(directory, header, skip);
-    console.log("🚀------------> INDEXING COMPLETED\n");
+    console.log("INDEXING COMPLETED\n");
   });
 
 program.parse();

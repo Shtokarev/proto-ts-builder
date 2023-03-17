@@ -26,7 +26,7 @@ export const generate = (
 
   const generate = (startPath: string) => {
     if (!fs.existsSync(startPath)) {
-      console.log("🚀------------> ERROR: FOLDER NOT FOUND", startPath);
+      console.log("ERROR: FOLDER NOT FOUND", startPath);
       return;
     }
 
@@ -48,12 +48,12 @@ export const generate = (
           fs.mkdirSync(outputDir, { recursive: true });
         }
 
-        console.log("🚀------------> FILE GENERATION STARTED FOR:", filename);
+        console.log("FILE GENERATION STARTED FOR:", filename);
         const command = generateCommand(fileName);
 
         console.log(command);
         execSync(command);
-        console.log("🚀------------> COMPLETED\n");
+        console.log("COMPLETED\n");
       }
     }
   };
