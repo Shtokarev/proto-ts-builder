@@ -2,7 +2,7 @@
 
 ## _Helper for Typescript gRPC proto API packages_
 
-CLI utility for creating Typescript ESM/CJS package with client stubs and services generation from a bunch of proto files, using grpc-tools.
+CLI utility for creating Typescript ESM/CJS package with client stubs and services generation from a bunch of proto files, using ts-proto.
 Just install the package in the repository with your proto files and run the command to generate the required typescript types and stubs.
 
 ## Features
@@ -14,7 +14,7 @@ Just install the package in the repository with your proto files and run the com
 
 ## Tech
 
-Uses grpc-tools (protoc) for generation, with widely used generation options, you can change them and set the necessary. Then package with the generated types and services can then be built using tsc and publish it.
+Uses ts-proto (protoc) for generation, with widely used generation options, you can change them and set the necessary. Then package with the generated types and services can then be built using tsc and publish it.
 
 ## Commands
 
@@ -28,24 +28,24 @@ Uses grpc-tools (protoc) for generation, with widely used generation options, yo
 Usage:
 proto-ts-builder generate-types [options]
 
-| Options                               | Desc                                                                                                 | Default                                                                                                                                                                                                                                                                 |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| -p, --proto <proto_path>              | The source directory with the proto files and subfolders, relative to the current working directory. | .                                                                                                                                                                                                                                                                       |
-| -d, --output <destination_path>       | The directory for TS generated types, relative to the current working directory.                     | ./generated/types                                                                                                                                                                                                                                                       |
-| -o, --ts_proto_opt <ts-proto-options> | Options for protoc and grpc-tools.                                                                   | outputEncodeMethods=false, outputJsonMethods=false, outputClientImpl=false, esModuleInterop=true, addGrpcMetadata=true, lowerCaseServiceMethods=true, unrecognizedEnum=true, exportCommonSymbols=false, oneof=unions, importSuffix=.js, env=node, removeEnumPrefix=true |
-| -h, --help                            | display help for command                                                                             |                                                                                                                                                                                                                                                                         |
+| Options                               | Desc                                                                                                 | Default                                                                                                                                                                                                                                                                |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -p, --proto <proto_path>              | The source directory with the proto files and subfolders, relative to the current working directory. | .                                                                                                                                                                                                                                                                      |
+| -d, --output <destination_path>       | The directory for TS generated types, relative to the current working directory.                     | ./generated/types                                                                                                                                                                                                                                                      |
+| -o, --ts_proto_opt <ts-proto-options> | Options for protoc and ts-proto.                                                                     | outputEncodeMethods=false, outputJsonMethods=false, outputClientImpl=false, esModuleInterop=true, addGrpcMetadata=true, lowerCaseServiceMethods=true, unrecognizedEnum=true, exportCommonSymbols=true, oneof=unions, importSuffix=.js, env=node, removeEnumPrefix=true |
+| -h, --help                            | display help for command                                                                             |                                                                                                                                                                                                                                                                        |
 
 ### generate-services
 
 Usage:
 proto-ts-builder generate-services [options]
 
-| Options                               | Desc                                                                                                 | Default                                                                                                                                                                                                             |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| -p, --proto <proto_path>              | The source directory with the proto files and subfolders, relative to the current working directory. | .                                                                                                                                                                                                                   |
-| -d, --output <destination_path>       | The directory for TS generated files, relative to the current working directory.                     | ./generated                                                                                                                                                                                                         |
-| -o, --ts_proto_opt <ts-proto-options> | Options for protoc and grpc-tools.                                                                   | outputServices=grpc-js, addGrpcMetadata=true, esModuleInterop=true, lowerCaseServiceMethods=true, unrecognizedEnum=true, exportCommonSymbols=false, oneof=unions, importSuffix=.js, env=node, removeEnumPrefix=true |
-| -h, --help                            | display help for command                                                                             |                                                                                                                                                                                                                     |
+| Options                               | Desc                                                                                                 | Default                                                                                                                                                                                                            |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| -p, --proto <proto_path>              | The source directory with the proto files and subfolders, relative to the current working directory. | .                                                                                                                                                                                                                  |
+| -d, --output <destination_path>       | The directory for TS generated files, relative to the current working directory.                     | ./generated                                                                                                                                                                                                        |
+| -o, --ts_proto_opt <ts-proto-options> | Options for protoc and ts-proto.                                                                     | outputServices=grpc-js, addGrpcMetadata=true, esModuleInterop=true, lowerCaseServiceMethods=true, unrecognizedEnum=true, exportCommonSymbols=true, oneof=unions, importSuffix=.js, env=node, removeEnumPrefix=true |
+| -h, --help                            | display help for command                                                                             |                                                                                                                                                                                                                    |
 
 ### index
 

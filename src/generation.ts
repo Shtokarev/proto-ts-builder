@@ -8,13 +8,21 @@ export const generate = (
   tsProtoOpt: string
 ) => {
   const generatedDir = path.join(process.cwd(), outputPath);
+  const pathToProtoc = path.join(
+    process.cwd(),
+    "node_modules/grpc-tools/bin/protoc.js"
+  );
+  const pathToPlugin = path.join(
+    process.cwd(),
+    "node_modules/.bin/protoc-gen-ts_proto"
+  );
 
   if (!fs.existsSync(generatedDir)) {
     fs.mkdirSync(generatedDir, { recursive: true });
   }
 
   const generateCommand = (protoFile: string) =>
-    `node ../../node_modules/grpc-tools/bin/protoc.js --plugin=../../node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=${outputPath} --proto_path=. ${protoFile} --ts_proto_opt=${tsProtoOpt}`;
+    `node ${pathToProtoc} --plugin=${pathToPlugin} --ts_proto_out=${outputPath} --proto_path=. ${protoFile} --ts_proto_opt=${tsProtoOpt}`;
 
   const generate = (startPath: string) => {
     if (!fs.existsSync(startPath)) {

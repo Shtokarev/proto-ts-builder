@@ -7,7 +7,7 @@ const program = new Command();
 program
   .name("proto-ts-builder")
   .description(
-    "CLI utility for creating Typescript ESM package with client and service from a bunch of proto files, using grpc-tools"
+    "CLI utility for creating Typescript ESM package with client and service from a bunch of proto files, using ts-proto"
   )
   .version("0.0.1");
 
@@ -25,17 +25,9 @@ program
   )
   .option(
     "-o,  --ts_proto_opt <ts-proto-options>",
-    "Options for grpc-tools.",
-    "outputEncodeMethods=false,outputJsonMethods=false,outputClientImpl=false,esModuleInterop=true,addGrpcMetadata=true,lowerCaseServiceMethods=true,unrecognizedEnum=true,exportCommonSymbols=false,oneof=unions,importSuffix=.js,env=node,removeEnumPrefix=true"
-  )
-
-  .action((options) => {
-    const { proto, output, ts_proto_opt } = options;
-    console.log("🚀------------> STARTING GENERATE TS TYPE FILES\n");
-
-    builder.generate(proto, output, ts_proto_opt);
-    console.log("🚀------------> TYPE FILES GENERATION COMPLETED\n");
-  });
+    "Options for ts-proto.",
+    "outputEncodeMethods=false,outputJsonMethods=false,outputClientImpl=false,esModuleInterop=true,addGrpcMetadata=true,lowerCaseServiceMethods=true,unrecognizedEnum=true,exportCommonSymbols=true,oneof=unions,importSuffix=.js,env=node,removeEnumPrefix=true"
+  );
 
 program
   .command("generate-services")
@@ -51,8 +43,8 @@ program
   )
   .option(
     "-o,  --ts_proto_opt <ts-proto-options>",
-    "Options for grpc-tools.",
-    "outputServices=grpc-js,addGrpcMetadata=true,esModuleInterop=true,lowerCaseServiceMethods=true,unrecognizedEnum=true,exportCommonSymbols=false,oneof=unions,importSuffix=.js,env=node,removeEnumPrefix=true"
+    "Options for ts-proto.",
+    "outputServices=grpc-js,addGrpcMetadata=true,esModuleInterop=true,lowerCaseServiceMethods=true,unrecognizedEnum=true,exportCommonSymbols=true,oneof=unions,importSuffix=.js,env=node,removeEnumPrefix=true"
   )
 
   .action((options) => {

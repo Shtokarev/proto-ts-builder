@@ -1,6 +1,6 @@
 {
   "name": "proto-ts-builder",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "./dist/cjs/src/index-cjs.js",
   "module": "./dist/mjs/index.js",
   "types": "./dist/mjs/index.d.ts",
@@ -26,7 +26,7 @@
   "repository": "git://github.com/Shtokarev/proto-ts-builder.git",
   "scripts": {
     "preprepare": "rm -rf dist",
-    "prepare": "tsc -p tsconfig-cjs.json && tsc -p tsconfig-esm.json"
+    "prepare": "tsc -p tsconfig-cjs.json && tsc -p tsconfig-esm.json && bash fixtype.sh"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.8.11",
