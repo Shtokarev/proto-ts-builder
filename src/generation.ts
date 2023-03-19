@@ -8,14 +8,9 @@ export const generate = (
   tsProtoOpt: string
 ) => {
   const generatedDir = path.join(process.cwd(), outputPath);
-  const pathToProtoc = path.join(
-    process.cwd(),
-    "node_modules/grpc-tools/bin/protoc.js"
-  );
-  const pathToPlugin = path.join(
-    process.cwd(),
-    "node_modules/.bin/protoc-gen-ts_proto"
-  );
+
+  const pathToProtoc = require.resolve("grpc-tools/bin/protoc.js");
+  const pathToPlugin = require.resolve("ts-proto/protoc-gen-ts_proto");
 
   if (!fs.existsSync(generatedDir)) {
     fs.mkdirSync(generatedDir, { recursive: true });
