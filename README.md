@@ -2,7 +2,7 @@
 
 ## _Helper for Typescript gRPC proto API packages_
 
-CLI utility for creating Typescript ESM/CJS package with client stubs and services generation from a bunch of proto files, using ts-proto.
+CLI utility for creating your own Typescript ESM/CJS API (DTO) package with client stubs and services generation from a bunch of proto files, using ts-proto.
 Just install the package in the repository with your proto files and run the command to generate the required typescript types and stubs.
 
 ## Features
@@ -11,6 +11,7 @@ Just install the package in the repository with your proto files and run the com
 - Generates types
 - Generates services to use for gRPC @grpc/grpc-js servers
 - Сreates index files for exporting types and services from subdirectories and the entire package
+- Index files are generated for modules with type ESM or CJS
 
 ## Tech
 
@@ -63,7 +64,7 @@ proto-ts-builder index [options]
 
 ### Example
 
-This is sample package.json for full packages (types ans services):
+This is sample package.json for full packages (types ans services), ESM module:
 
 ```json
 {
@@ -84,6 +85,7 @@ This is sample package.json for full packages (types ans services):
     "license": "MIT",
     "dependencies": {},
     "devDependencies": {
+        "proto-ts-builder": "^1.0.0",
         "rimraf": "^4.4.0",
         "typescript": "^4.9.5"
     }
