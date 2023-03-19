@@ -1,6 +1,6 @@
 {
   "name": "proto-ts-builder",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "main": "./dist/bin.js",
   "bin": "./dist/bin.js",
   "files": [
@@ -12,7 +12,10 @@
   "repository": "git://github.com/Shtokarev/proto-ts-builder.git",
   "scripts": {
     "preprepare": "rm -rf dist",
-    "prepare": "tsc"
+    "prepare": "tsc",
+    "r": "node ./dist/bin.js index -m ESM -p 'export * from \"%2$s\";'",
+    "r2": "node ./dist/bin.js generate-types && node ./dist/bin.js generate-services",
+    "r3": "node ./dist/bin.js generate-types && node ./dist/bin.js index --directory ./generated/types && node ./dist/bin.js generate-services && node ./dist/bin.js index"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.8.11",
