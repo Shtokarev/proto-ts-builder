@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*.ts", "./package.json"],
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "declaration": true,
@@ -11,6 +11,8 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es2022"
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "dist"
   }
 }

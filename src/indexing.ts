@@ -1,19 +1,35 @@
 import path from "path";
 import fs from "fs";
+import { sprintf } from "sprintf-js";
+
+type ModuleType = "ESM" | "CJS";
+
+const trimAndConvertToCamelCase = (name: string) =>
+  name
+    .replace(/\.[tj]s$/, "")
+    .toLowerCase()
+    .match(/[A-Z0-9]+/gi)
+    ?.map((word, i) => (i ? word[0].toUpperCase() + word.slice(1) : word))
+    .join("");
 
 export const indexTsFolder = (
   sourceDirectory: string,
   indexHeader: string,
-  skipDirName: string
+  skipDirName: string,
+  module: ModuleType,
+  pattern: string
 ) => {
-  const replaceExt = (url: string, replacer = "") =>
-    url.replace(/\.ts$/, replacer);
+  const isESMModule = module === "ESM";
+  const fileExtReplacement = isESMModule ? ".js" : "";
+
+  const replaceExt = (url: string) =>
+    url.replace(/\.[tj]s$/, fileExtReplacement);
+
+  const generateImportDirectory = (directory: string) =>
+    isESMModule ? `./${directory}/index.js` : `./${directory}`;
 
   const createIndexFile = (importLines: string[]) =>
-    indexHeader +
-    "\n" +
-    importLines.map((file) => `export * from "${file}";`).join("\n") +
-    "\n";
+    indexHeader + "\n" + importLines.join("\n") + "\n";
 
   const proceedWithDirectoryFiles = (directoryPath: string) => {
     const files = fs.readdirSync(directoryPath);
@@ -27,14 +43,31 @@ export const indexTsFolder = (
           return;
         }
 
-        importLines.push(`./${fileOrDirectory}/index.js`);
+        const importDirCommand = sprintf(
+          pattern,
+          trimAndConvertToCamelCase(fileOrDirectory),
+          generateImportDirectory(fileOrDirectory)
+        );
+
+        importLines.push(importDirCommand);
+
         proceedWithDirectoryFiles(path.join(directoryPath, fileOrDirectory));
       } else {
+        if (fileOrDirectory === "index.ts") {
+          return;
+        }
+
         if (
           fileOrDirectory.endsWith(".ts") ||
           fileOrDirectory.indexOf(".") == -1
         ) {
-          importLines.push(`./${replaceExt(fileOrDirectory)}.js`);
+          const importFileCommand = sprintf(
+            pattern,
+            trimAndConvertToCamelCase(fileOrDirectory),
+            `./${replaceExt(fileOrDirectory)}`
+          );
+
+          importLines.push(importFileCommand);
         }
       }
     });
