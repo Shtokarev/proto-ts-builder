@@ -2,13 +2,14 @@
 import { Command, Option } from "commander";
 import { generate } from "./generation";
 import { indexTsFolder } from "./indexing";
+import { createReflection } from "./reflection";
 
 const program = new Command();
 
 program
   .name("proto-ts-builder")
   .description(
-    "CLI utility for creating Typescript ESM package with client and service from a bunch of proto files, using ts-proto"
+    "CLI utility for creating Typescript ESM package with client and service from a bunch of proto files, build reflection file, using ts-proto"
   )
   .version("0.0.1");
 
@@ -99,6 +100,26 @@ program
 
     indexTsFolder(directory, header, skip, module, pattern);
     console.log("INDEXING COMPLETED\n");
+  });
+
+program
+  .command("reflection")
+  .option(
+    "-p, --proto <proto_path>",
+    "The source directory with the proto files and subfolders, relative to the current working directory.",
+    "."
+  )
+  .option(
+    "-s --skip <path_name>",
+    "A list of proto files with relative paths, separated by commas, to be skipped in case of 'TYPE is already defined in file FILE' errors (protoc circular dependencies issue).",
+    ""
+  )
+  .action((options) => {
+    const { proto, skip } = options;
+    console.log("STARTING GENERATE REFLECTION FILE\n");
+
+    createReflection(proto, skip);
+    console.log("REFLECTION FILE GENERATION COMPLETED\n");
   });
 
 program.parse();

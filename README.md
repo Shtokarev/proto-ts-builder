@@ -2,7 +2,7 @@
 
 ## _Helper for Typescript gRPC proto API packages_
 
-CLI utility for creating your own Typescript ESM/CJS API (DTO) package with client stubs and services generation from a bunch of proto files, using ts-proto.
+CLI utility for creating your own Typescript ESM/CJS API (DTO) package with client stubs, services generation and reflection file from a bunch of proto files, using ts-proto.
 Just install the package in the repository with your proto files and run the command to generate the required typescript types and stubs.
 
 ## Features
@@ -12,6 +12,7 @@ Just install the package in the repository with your proto files and run the com
 - Generates services to use for gRPC @grpc/grpc-js servers
 - Сreates index files for exporting types and services from subdirectories and the entire package
 - Index files are generated for modules with type ESM or CJS
+- Generates file for gRPC server reflection for all proto files
 
 ## Tech
 
@@ -62,6 +63,17 @@ proto-ts-builder index [options]
 | -p --pattern <sprintf_string> | Pattern for export command in the sprintf format                                         | export \* as %1$s from "%2$s";                                 |
 | -h, --help                    | display help for command                                                                 |
 
+### reflection
+
+Usage:
+proto-ts-builder reflection [options]
+
+| Options                  | Desc                                                                                                                                                                        | Default |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| -p, --proto <proto_path> | The source directory with the proto files and subfolders, relative to the current working directory.                                                                        | .       |
+| -s --skip <path_name>    | A list of proto files with relative paths, separated by commas, to be skipped in case of "TYPE is already defined in file FILE" protoc errors (circular dependencies issue) | empty   |
+| -h, --help               | display help for command                                                                                                                                                    |
+
 ### Example
 
 This is sample package.json for full packages (types ans services), ESM module:
@@ -76,8 +88,13 @@ This is sample package.json for full packages (types ans services), ESM module:
     "exports": "./build/index.js",
     "scripts": {
         "clean": "rimraf ./build ./generated",
-        "prebuild": "proto-ts-builder generate-types && proto-ts-builder index -m ESM -d ./generated/types && proto-ts-builder generate-services && proto-ts-builder index -m ESM",
-        "build": "tsc"
+        "generate:types": "proto-ts-builder generate-types",
+        "index:types": "proto-ts-builder index -m ESM -d ./generated/types",
+        "generate:services": "proto-ts-builder generate-services",
+        "index:services": "proto-ts-builder index -m ESM",
+        "prebuild": "npm run clean && npm run generate:types && npm run index:types && npm run generate:services && npm run index:services",
+        "build": "tsc",
+        "reflection": "proto-ts-builder reflection"
     },
     "files": [
         "build/**"
